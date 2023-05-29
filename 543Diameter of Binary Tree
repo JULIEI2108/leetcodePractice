@@ -1,0 +1,36 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+
+        # checking the height of a binary tree from its root
+        def checklength(root):
+            if root is None :
+                return 0
+            if root.right is None and root.left is None :
+                return 1
+            elif root.left is None :
+                return checklength(root.right) + 1
+            elif root.right is None :
+                return checklength(root.left) +1
+            else :
+                return max(checklength(root.left), checklength(root.right)) + 1
+        # keep track of the diameter
+        temp = 0
+        def diameter(root) :
+            nonlocal temp
+            # if the input root is None don't change temp
+            if root is None :
+                return 
+            # if the diameter pass one nodes is longer than temp, update temp
+            if checklength(root.left) + checklength(root.right) > temp :
+                temp = checklength(root.left) + checklength(root.right)
+            # check the nods on bothside
+            diameter(root.left)
+            diameter(root.right)
+        diameter(root)
+        return temp
