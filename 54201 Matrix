@@ -1,0 +1,28 @@
+class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        m = len(mat)
+        n = len(mat[0])
+        q = deque()
+        visited = set()
+        ans = [[0]* n for _ in range (m)]
+        direction = [(0, 1), (0, -1), (-1, 0), (1, 0)]
+        for i in range (m) :
+            for j in range (n) :
+                if mat[i][j] == 0 :
+                    q.append((i,j))
+                    visited.add((i,j))
+        
+        dis = 0
+        while q :
+            for _ in range (len(q)) :
+                i, j = q.popleft()
+                if mat[i][j] == 1 :
+                    ans[i][j] = dis
+                for d in direction :
+                    mi = i + d[0]
+                    nj = j + d[1]
+                    if 0 <= mi< m and 0 <= nj< n and (mi, nj) not in visited :
+                        q.append((mi,nj))
+                        visited.add((mi,nj))
+            dis += 1
+        return ans
