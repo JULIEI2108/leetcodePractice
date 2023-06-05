@@ -1,0 +1,33 @@
+from collections import deque
+
+
+def canFinish(numCourses: int, prerequisites: list):
+    coursechecklist = [0] * numCourses
+    courseq= deque()
+    courserequirement = {}
+    for n in prerequisites:
+        if n[0] not in courserequirement :
+            courseq.append(n[0])
+            courserequirement[n[0]] = [n[1]]
+            coursechecklist[n[0]] = 1
+        else:
+            courserequirement[n[0]].append(n[1])
+    while courseq:
+        n = len(courseq)
+        for _ in range(n) :
+            course = courseq.popleft()
+            for _ in range(len(courserequirement[course])):
+                precourse = courserequirement[course].pop(0)
+                if coursechecklist[precourse] == 1 :
+                    courserequirement[course].append(precourse)
+            if courserequirement[course] !=[] :
+                courseq.append(course)
+            else :
+                coursechecklist[course] = 0
+        if  n == len(courseq):
+            return False
+    return True
+                      
+                         
+print(canFinish(numCourses = 3, prerequisites =[[2,0],[2,1]
+]))
