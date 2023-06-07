@@ -31,3 +31,30 @@ def canFinish(numCourses: int, prerequisites: list):
                          
 print(canFinish(numCourses = 3, prerequisites =[[2,0],[2,1]
 ]))
+
+
+#second solution from neetcode
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        prereq = { i : [] for i in range(numCourses)}
+        for cro, pre in prerequisites:
+            prereq[cro].append(pre)
+        coustudy = set()
+        def dbf(cro):
+            if cro in coustudy :
+                return False
+            if prereq[cro] == [] :
+                return True
+            coustudy.add(cro)
+            for pre in prereq[cro]:
+                if not dbf(pre) :
+                    return False
+            coustudy.remove(cro)
+            prereq[cro] = []
+            return True
+        for course in range(numCourses) :
+            if not dbf(course) :
+                return False
+        return True
+
