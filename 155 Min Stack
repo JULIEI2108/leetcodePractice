@@ -1,0 +1,40 @@
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        if self.minStack :
+            val = min(self.minStack(-1), val)
+        self.minStack.append(val)
+
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minStack.pop()
+
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.minStack[-1]
+
+
+# This is a method of have 2 list to track the stack one list maintain the oder of the stack and other list
+# compare the minimum elememt with the new value pushed into the stack and keep track of the minimum element 
+# with the new stach after new element is pushed in 
+
+obj = MinStack()
+obj.push(4)
+obj.push(1)
+obj.push(5)
+print(obj.stack)
+print(obj.minStack)
+obj.pop()
+print(obj.stack)
+print(obj.minStack)
+param_4 = obj.getMin()
+print(param_4)

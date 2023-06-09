@@ -1,0 +1,44 @@
+# my own solution
+
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        leftp  = []
+        rightp = []
+        l = len(nums)
+        n = 1
+        m = 1
+        for i in range(0, l-1) :
+            n = n*nums[i]
+            leftp.append(n)
+            m = m * nums[l - i - 1]
+            rightp.append(m)
+        result = []
+        print(leftp)
+        print(rightp)
+        for i in range(0, l):
+            if i == 0 :
+                print(l)
+                print(i)
+                x = rightp[l - i - 2]
+            elif  i == l - 1:
+                x = leftp[i-1]
+            else:
+                x = leftp[i -1] * rightp[l - i - 2]
+            result.append(x)
+        return result
+    
+# optimised solution
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        l = len(nums)
+        pre = 1
+        post = 1
+        result = [1] * l
+        for i in range(0, l):
+            result[i] *= pre
+            pre *= nums[i]
+            result[l -1 -i] *= post 
+            post *= nums[l -1 -i]
+        return result
+    
+
