@@ -1,0 +1,33 @@
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        r = ''
+        x = []
+        for i in range(len(s)):
+            n = s[i]
+            if n.isnumeric():
+                r = r + n
+            else :
+                if len(r) > 0 or len(x) > 0 :
+                    break
+                else:
+                    if n == ' ' :
+                        pass
+                    elif n == '-':
+                        x.append(-1)
+                    elif n == '+':
+                        x.append(1)
+                    else :
+                        break
+        if r == '' :
+            result = 0 
+        else :
+            if len(x) == 1:
+                result = x[0] * int(r)
+            else :
+                result = int(r)
+        if result > 2 ** 31 -1 :
+            return 2 ** 31 - 1
+        elif result < -2 ** 31 :
+            return -2 ** 31
+        else:
+            return result
